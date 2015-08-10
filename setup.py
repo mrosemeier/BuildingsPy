@@ -1,6 +1,6 @@
 import os
 from setuptools import setup
-# Python setup file. 
+# Python setup file.
 # See http://packages.python.org/an_example_pypi_project/setuptools.html
 
 def read(fname):
@@ -16,12 +16,12 @@ setup(
     license = "3-clause BSD",
     keywords = "modelica dymola openmodelica mat",
     url = "http://simulationresearch.lbl.gov/modelica/",
-    install_requires = ["pytidylib"],
+    install_requires = ["pytidylib", "numpy", "scipy", "matplotlib"],
     packages = ['buildingspy',
-                'buildingspy/development', 
-                'buildingspy/examples', 
-                'buildingspy/io', 
-                'buildingspy/simulate', 
+                'buildingspy/development',
+                'buildingspy/examples',
+                'buildingspy/io',
+                'buildingspy/simulate',
                 'buildingspy/thirdParty',
                 'buildingspy/thirdParty.dymat',
                 'buildingspy/thirdParty.dymat.DyMat',

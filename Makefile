@@ -1,5 +1,8 @@
 BPDIR=buildingspy
 BPDOC=doc
+TEMPDIR:=$(shell mktemp -d)
+SHELL=/bin/bash
+CURDIR=$(shell pwd)
 
 .PHONY: doc clean
 
@@ -18,6 +21,18 @@ unittest:
 #	python buildingspy/tests/test_simulate_Simulator.py
 #	python buildingspy/tests/test_io_postprocess.py
 
+installtest:
+	@echo "Temporary directory is $(TEMPDIR)"
+	virtualenv $(TEMPDIR)
+	( \
+	  source $(TEMPDIR)/bin/activate; \
+		pip install setuptools; \
+		pip install -e $(CURDIR); \
+		make unittest; \
+	)
+
+
+
 doctest:
 	python -m doctest \
 	buildingspy/fmi/*.py \
@@ -28,7 +43,7 @@ doctest:
         buildingspy/development/*.py
 	@rm -f plot.pdf plot.png roomTemperatures.png dymola.log
 
-dist:	clean doctest unittest doc 
+dist:	clean doctest unittest doc
 	@# Make sure README.rst are consistent
 	cmp -s README.rst buildingspy/README.rst
 	python setup.py sdist --formats=gztar,zip
